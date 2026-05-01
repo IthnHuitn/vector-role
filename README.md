@@ -1,38 +1,58 @@
-Role Name
-=========
+# Vector Role
 
-A brief description of the role goes here.
+Роль Ansible для установки и настройки Vector — сборщика логов с отправкой в ClickHouse.
 
-Requirements
-------------
+## Требования
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible 2.9+
+- ClickHouse должен быть установлен и доступен по сети
+- Архитектура x86_64
 
-Role Variables
---------------
+## Переменные
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### defaults/main.yml
 
-Dependencies
-------------
+| Переменная | Значение по умолчанию | Описание |
+|------------|------------------------|----------|
+| `vector_version` | `0.39.0` | Версия Vector |
+| `vector_install_dir` | `/opt/vector` | Директория установки |
+| `vector_config_dir` | `/etc/vector` | Директория конфигурации |
+| `vector_data_dir` | `/var/lib/vector` | Директория данных |
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Обязательные переменные (из playbook)
 
-Example Playbook
-----------------
+| Переменная | Описание |
+|------------|----------|
+| `clickhouse_host` | IP-адрес или хост ClickHouse |
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Использование
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: vector
+  become: true
+  roles:
+    - role: vector-role
+      vars:
+        clickhouse_host: "IP-adress" # ваш IP адрес хоста
+```
 
-License
--------
+## Теги
 
-BSD
+```text
+Тег	        | Описание
+directories	| Создание директорий
+download	| Скачивание дистрибутива
+install	   | Установка Vector
+config	   | Настройка конфигурации
+service	   | Запуск и включение сервиса
+```
 
-Author Information
-------------------
+## Установка
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```bash
+ansible-galaxy install git+https://github.com/IthnHuitn/vector-role.git
+```
+
+## Автор
+
+## `IthnHuitn`
