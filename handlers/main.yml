@@ -4,4 +4,4 @@
     name: vector
     state: restarted
     daemon_reload: true
-  when: not (test_mode | default(false))
+  when: false

@@ -78,6 +78,6 @@
     name: vector
     state: started
     enabled: true
-  when: not (test_mode | default(false))
+  when: false
   tags:
     - service
